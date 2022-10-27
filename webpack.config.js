@@ -21,10 +21,24 @@ const config = {
     },
     module: {
         rules: [
-            // @TODO js rule
-            // @TODO css rule
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /(node_modules)/,
+                loader: 'babel-loader',
+                options: { presets: ['@babel/env', '@babel/preset-react'] },
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            }
         ],
     },
+    resolve: {
+        extensions: ['.js', ".jsx", ".css"],
+        fallback: { "stream": require.resolve("stream-browserify") }
+    },
+
+    mode: "development"
     // @TODO optimizations
     // @TODO lodash treeshaking
     // @TODO chunk for lodash
