@@ -1,0 +1,28 @@
+name: linting-build
+
+on: 
+  pull_request: 
+  push:
+    branches:
+      - '**'     
+      - '!master'
+  
+jobs:
+  linting:
+    runs-on: macos-latest
+    
+    steps:
+      - name: linting js
+        run: npm run lint:js
+      - name: linting css
+        run: npm run lint:css
+        
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: building
+        run: npm run build
+  
+    
+    
