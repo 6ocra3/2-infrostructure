@@ -12,6 +12,9 @@ jobs:
     runs-on: macos-latest
     
     steps:
+      - uses: actions/checkout@v2 
+      - name: install npm
+        run: npm install
       - name: linting js
         run: npm run lint:js
       - name: linting css
