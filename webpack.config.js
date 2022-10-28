@@ -4,12 +4,14 @@ const StatoscopePlugin = require('@statoscope/webpack-plugin').default;
 
 const config = {
     entry: {
+        index: './src/index.jsx',
         about: './src/pages/About.js',
         home: './src/pages/Home.js',
     },
     plugins: [
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({ template: "public/index.html" }),
         new StatoscopePlugin({
+            saveReportTo: "statoscope.html",
             saveStatsTo: 'stats.json',
             saveOnlyStats: false,
             open: false,
@@ -18,6 +20,7 @@ const config = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[contenthash].js',
+        clean: true
     },
     module: {
         rules: [
@@ -35,10 +38,16 @@ const config = {
     },
     resolve: {
         extensions: ['.js', ".jsx", ".css"],
-        fallback: { "stream": require.resolve("stream-browserify") }
+        fallback: { "stream": require.resolve("stream-browserify") },
+        modules: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'node_modules/react-redux/node_modules')],
     },
-
-    mode: "development"
+    mode: "production",
+    optimization: {
+        minimize: true,
+        moduleIds: "deterministic",
+        innerGraph: true,
+        concatenateModules: true,
+    },
     // @TODO optimizations
     // @TODO lodash treeshaking
     // @TODO chunk for lodash
