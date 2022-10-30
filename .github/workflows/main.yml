@@ -18,10 +18,4 @@ jobs:
       - run: npm run build
       - run: git config --global user.name "6ocra3"
       - run: git config --global user.email "6o3kmm@mail.ru"
-      - name: Deploy
-        uses: crazy-max/ghaction-github-pages@v1
-        with:
-          target_branch: gh-pages
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+      - run: npm run deploy
